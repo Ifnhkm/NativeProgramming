@@ -1,0 +1,235 @@
+Classes and inherintance in Kotlin 
+
+/* Name : Muhammad Irfan Hakim
+ * Date : 28/11/2023
+ * Program : Computer Science (Mobile Computing)
+*/ 
+​
+import kotlin.math.PI
+import kotlin.math.sqrt
+​
+fun main() {
+   val squareCabin = SquareCabin(6, 50.0)
+   val roundHut = RoundHut(3, 10.0)
+   val roundTower = RoundTower(4, 15.5)
+​
+   with(squareCabin) {
+       println("\nSquare Cabin\n============")
+       println("Capacity: ${capacity}")
+       println("Material: ${buildingMaterial}")
+       println("Floor area: ${floorArea()}")
+   }
+​
+   with(roundHut) {
+       println("\nRound Hut\n=========")
+       println("Material: ${buildingMaterial}")
+       println("Capacity: ${capacity}")
+       println("Floor area: ${floorArea()}")
+       println("Has room? ${hasRoom()}")
+       getRoom()
+       println("Has room? ${hasRoom()}")
+       getRoom()
+       println("Carpet size: ${calculateMaxCarpetLength()}")
+   }
+​
+   with(roundTower) {
+       println("\nRound Tower\n==========")
+       println("Material: ${buildingMaterial}")
+       println("Capacity: ${capacity}")
+       println("Floor area: ${floorArea()}")
+       println("Carpet Length: ${calculateMaxCarpetLength()}")
+   }
+}
+​
+abstract class Dwelling(private var residents: Int) {
+   abstract val buildingMaterial: String
+   abstract val capacity: Int
+​
+   abstract fun floorArea(): Double
+​
+   fun hasRoom(): Boolean {
+       return residents < capacity
+   }
+​
+   fun getRoom() {
+       if (capacity > residents) {
+           residents++
+           println("You got a room!")
+       } else {
+           println("Sorry, at capacity and no rooms left.")
+       }
+   }
+​
+   }
+​
+class SquareCabin(residents: Int, val length: Double) : Dwelling(residents) {
+   override val buildingMaterial = "Wood"
+   override val capacity = 6
+​
+   override fun floorArea(): Double {
+       return length * length
+   }
+​
+}
+​
+open class RoundHut(
+       residents: Int, val radius: Double) : Dwelling(residents) {
+​
+   override val buildingMaterial = "Straw"
+   override val capacity = 4
+​
+   override fun floorArea(): Double {
+       return PI * radius * radius
+   }
+​
+    fun calculateMaxCarpetLength(): Double {
+        return sqrt(2.0) * radius
+    }
+}
+​
+class RoundTower(
+       residents: Int,
+       radius: Double,
+       val floors: Int = 2) : RoundHut(residents, radius) {
+​
+   override val buildingMaterial = "Stone"
+​
+   // Capacity depends on the number of floors.
+   override val capacity = floors * 4
+​
+   override fun floorArea(): Double {
+       return super.floorArea() * floors
+   }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Create XML layouts for Android
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/cost_of_service"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/cost_of_service"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/service_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/how_was_the_service"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cost_of_service" />
+
+    <RadioGroup
+        android:id="@+id/tip_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/option_twenty_percent"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/service_question">
+
+        <RadioButton
+            android:id="@+id/option_twenty_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/amazing_service" />
+
+        <RadioButton
+            android:id="@+id/option_eighteen_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/good_service" />
+
+        <RadioButton
+            android:id="@+id/option_fifteen_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok_service" />
+    </RadioGroup>
+
+    <Switch
+        android:id="@+id/round_up_switch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/round_up_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tip_options"
+        app:layout_constraintTop_toBottomOf="@id/tip_options" />
+
+    <Button
+        android:id="@+id/calculate_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/calculate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/round_up_switch" />
+
+    <TextView
+        android:id="@+id/tip_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tip_amount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calculate_button" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Calculate the tip
+
+package com.example.tiptime
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.example.tiptime.databinding.ActivityMainBinding
+import java.text.NumberFormat
+
+class MainActivity : AppCompatActivity() {
+
+   private lateinit var binding: ActivityMainBinding
+
+   override fun onCreate(savedInstanceState: Bundle?) {
+       super.onCreate(savedInstanceState)
+
+       binding = ActivityMainBinding.inflate(layoutInflater)
+       setContentView(binding.root)
+
+       binding.calculateButton.setOnClickListener { calculateTip() }
+   }
+
+   private fun calculateTip() {
+       val stringInTextField = binding.costOfService.text.toString()
+       val cost = stringInTextField.toDoubleOrNull()
+       if (cost == null) {
+           binding.tipResult.text = ""
+           return
+       }
+
+       val tipPercentage = when (binding.tipOptions.checkedRadioButtonId) {
+           R.id.option_twenty_percent -> 0.20
+           R.id.option_eighteen_percent -> 0.18
+           else -> 0.15
+       }
+
+       var tip = tipPercentage * cost
+       if (binding.roundUpSwitch.isChecked) {
+           tip = kotlin.math.ceil(tip)
+       }
+
+       val formattedTip = NumberFormat.getCurrencyInstance().format(tip)
+       binding.tipResult.text = getString(R.string.tip_amount, formattedTip)
+   }
+}
