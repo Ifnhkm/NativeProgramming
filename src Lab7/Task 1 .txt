@@ -1,0 +1,104 @@
+Task 1 
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+----------------------------------------------------------------------------------------------------------------------------------------
+MainActivity.java
+
+package com.example.listsensor;
+
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    private SensorManager senseMan;
+    private ListView lv;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Map lv to resource lv
+        lv = findViewById(R.id.listView);
+
+        // Get sensor manager
+        senseMan = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        // Get sensor list and put inside ArrayList
+        List<Sensor> sensorList = senseMan.getSensorList(Sensor.TYPE_ALL);
+
+        // Put the sensor list into ListView
+        lv.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sensorList));
+
+        // Other code for onCreate method...
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+MainActivity.kt 
+
+package com.example.listsensor;
+
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    private SensorManager senseMan;
+    private ListView lv;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Map lv to resource lv
+        lv = findViewById(R.id.listView);
+
+        // Get sensor manager
+        senseMan = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        // Get sensor list and put inside ArrayList
+        List<Sensor> sensorList = senseMan.getSensorList(Sensor.TYPE_ALL);
+
+        // Put the sensor list into ListView
+        lv.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sensorList));
+
+        // Other code for onCreate method...
+    }
+}
+

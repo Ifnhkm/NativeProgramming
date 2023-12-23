@@ -1,0 +1,331 @@
+Task 3 
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F0F0">
+
+    <!-- Accelerometer CardView -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/accelerometerCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Accelerometer X"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Accelerometer Y"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Accelerometer Z"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/accelerometerValuesX"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/accelerometerValuesY"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/accelerometerValuesZ"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+            </TableRow>
+        </TableLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Gyroscope CardView -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/gyroscopeCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/accelerometerCardView"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Gyroscope X"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Gyroscope Y"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Gyroscope Z"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/gyroscopeValuesX"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/gyroscopeValuesY"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/gyroscopeValuesZ"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+            </TableRow>
+        </TableLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Magnetometer CardView -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/magnetometerCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gyroscopeCardView"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Magnetometer X"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Magnetometer Y"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Magnetometer Z"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/magnetometerValuesX"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/magnetometerValuesY"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/magnetometerValuesZ"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+            </TableRow>
+        </TableLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
+
+MainActivity.java
+
+package com.example.positionsensor;
+
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
+import java.util.Locale;
+
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
+
+    private SensorManager sensorManager;
+    private Sensor accelerometerSensor;
+    private Sensor gyroscopeSensor;
+    private Sensor magnetometerSensor;
+
+    private TextView accelerometerValuesX;
+    private TextView accelerometerValuesY;
+    private TextView accelerometerValuesZ;
+
+    private TextView gyroscopeValuesX;
+    private TextView gyroscopeValuesY;
+    private TextView gyroscopeValuesZ;
+
+    private TextView magnetometerValuesX;
+    private TextView magnetometerValuesY;
+    private TextView magnetometerValuesZ;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Accelerometer UI
+        accelerometerValuesX = findViewById(R.id.accelerometerValuesX);
+        accelerometerValuesY = findViewById(R.id.accelerometerValuesY);
+        accelerometerValuesZ = findViewById(R.id.accelerometerValuesZ);
+
+        // Gyroscope UI
+        gyroscopeValuesX = findViewById(R.id.gyroscopeValuesX);
+        gyroscopeValuesY = findViewById(R.id.gyroscopeValuesY);
+        gyroscopeValuesZ = findViewById(R.id.gyroscopeValuesZ);
+
+        // Magnetometer UI
+        magnetometerValuesX = findViewById(R.id.magnetometerValuesX);
+        magnetometerValuesY = findViewById(R.id.magnetometerValuesY);
+        magnetometerValuesZ = findViewById(R.id.magnetometerValuesZ);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        magnetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+        if (accelerometerSensor != null) {
+            sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
+        if (gyroscopeSensor != null) {
+            sensorManager.registerListener(this, gyroscopeSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
+        if (magnetometerSensor != null) {
+            sensorManager.registerListener(this, magnetometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        switch (event.sensor.getType()) {
+            case Sensor.TYPE_ACCELEROMETER:
+                updateValues(accelerometerValuesX, accelerometerValuesY, accelerometerValuesZ, event.values);
+                break;
+            case Sensor.TYPE_GYROSCOPE:
+                updateValues(gyroscopeValuesX, gyroscopeValuesY, gyroscopeValuesZ, event.values);
+                break;
+            case Sensor.TYPE_MAGNETIC_FIELD:
+                updateValues(magnetometerValuesX, magnetometerValuesY, magnetometerValuesZ, event.values);
+                break;
+        }
+    }
+
+    private void updateValues(TextView textViewX, TextView textViewY, TextView textViewZ, float[] values) {
+        textViewX.setText(String.format(Locale.getDefault(), "%.2f", values[0]));
+        textViewY.setText(String.format(Locale.getDefault(), "%.2f", values[1]));
+        textViewZ.setText(String.format(Locale.getDefault(), "%.2f", values[2]));
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Implementation of onAccuracyChanged if needed
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (accelerometerSensor != null) {
+            sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+        if (gyroscopeSensor != null) {
+            sensorManager.registerListener(this, gyroscopeSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+        if (magnetometerSensor != null) {
+            sensorManager.registerListener(this, magnetometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+}

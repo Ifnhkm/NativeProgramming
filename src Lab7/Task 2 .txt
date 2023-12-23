@@ -1,0 +1,259 @@
+Task 2 
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Light Sensor!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+MainActivity.java
+
+package com.example.specificsensor;
+
+import android.annotation.SuppressLint;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
+
+    private SensorManager senseMan;
+    private Sensor lightSensor;
+    private TextView textview;
+
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Map textview to TextView resources
+        textview = findViewById(R.id.textview);
+
+        // Map sensor manager to system service
+        senseMan = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        // Map sensor to light sensor
+        lightSensor = senseMan.getDefaultSensor(Sensor.TYPE_LIGHT);
+
+        // Register listener for lightSensor
+        if (lightSensor != null) {
+            senseMan.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+            Toast.makeText(this, "Light sensor found", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Light sensor not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        // Change the value in textview when light level changed
+        textview.setText(Float.toString(event.values[0]));
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Implementation of onAccuracyChanged if needed
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Register listener for lightSensor in onResume
+        senseMan.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Unregister listener for senseMan in onPause
+        senseMan.unregisterListener(this);
+    }
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Task 2B 
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#303030"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="#FFFFFF"
+        android:elevation="8dp"/>
+
+    <TextView
+        android:id="@+id/lightTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Light Sensor: "
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/appLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/proximityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Proximity Sensor: "
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/lightTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/humidityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Humidity Sensor: "
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/proximityTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>
+
+
+MainActivity.java
+
+package com.example.specificsensor;
+
+import android.annotation.SuppressLint;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
+
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
+    private Sensor proximitySensor;
+    private Sensor humiditySensor;
+
+    private TextView lightTextView;
+    private TextView proximityTextView;
+    private TextView humidityTextView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        lightTextView = findViewById(R.id.lightTextView);
+        proximityTextView = findViewById(R.id.proximityTextView);
+        humidityTextView = findViewById(R.id.humidityTextView);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        humiditySensor = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+
+        ImageView appLogo = findViewById(R.id.appLogo);
+        appLogo.setImageResource(R.mipmap.ic_launcher);
+
+        if (lightSensor != null) {
+            sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+            Toast.makeText(this, "Light sensor found", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Light sensor not found", Toast.LENGTH_SHORT).show();
+        }
+
+        if (proximitySensor != null) {
+            sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+            Toast.makeText(this, "Proximity sensor found", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Proximity sensor not found", Toast.LENGTH_SHORT).show();
+        }
+
+        if (humiditySensor != null) {
+            sensorManager.registerListener(this, humiditySensor, SensorManager.SENSOR_DELAY_NORMAL);
+            Toast.makeText(this, "Humidity sensor found", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Humidity sensor not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        switch (event.sensor.getType()) {
+            case Sensor.TYPE_LIGHT:
+                lightTextView.setText("Light Sensor: " + event.values[0]);
+                break;
+            case Sensor.TYPE_PROXIMITY:
+                proximityTextView.setText("Proximity Sensor: " + event.values[0]);
+                break;
+            case Sensor.TYPE_RELATIVE_HUMIDITY:
+                humidityTextView.setText("Humidity Sensor: " + event.values[0]);
+                break;
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Implementation of onAcZcuracyChanged if needed
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, humiditySensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+}
