@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MindSharpener</string>
+    <string name="label_textview1">Instructions :</string>
+    <string name="label_textview2">This is a simple mathematic games which is believed can train your brain. Two numbers are given randomly based on your level choice together with the operator. You just need to calculates the answer, write your
+answer and press check button. Every correct answer will give you 1 point while wrong answer will deduct 1 point.</string>
+    <string name="label_textview3">Choose Level :</string>
+
+    <string name="label_radiobtn1">i3</string>
+    <string name="label_radiobtn2">i5</string>
+    <string name="label_radiobtn3">i7</string>
+
+    <string name="label_textview4">1</string>
+    <string name="label_textview5">+</string>
+    <string name="label_textview6">1</string>
+    <string name="hint_edittext">Enter text here</string>
+    <string name="label_button">Check</string>
+    <string name="label_txtview7">POINT : </string>
+    <string name="label_textview8">0</string>
+</resources>
