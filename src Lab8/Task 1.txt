@@ -1,0 +1,197 @@
+TASK 1 
+
+main_activity.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:text="SharedPreference Example"
+        android:textSize="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:text="CSM3123"
+        android:textColor="@color/colorText"
+        android:textSize="35dp" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="67dp"
+        android:hint="Enter your name"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="67dp"
+        android:hint="Enter your phone no"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="67dp"
+        android:hint="Enter your email"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_below="@+id/editText3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="73dp"
+        android:text="Save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_below="@+id/editText3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="-17dp"
+        android:layout_marginTop="73dp"
+        android:layout_toStartOf="@+id/button1"
+        android:text="Get SP"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="133dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="73dp"
+        android:layout_toEndOf="@id/button1"
+        android:text="Clear SP" />
+
+
+</RelativeLayout>
+
+----------------------------------------------------------------------------------------------------------------------------------------
+MainActivity.java
+
+package com.example.connectdatabase;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText ed1, ed2, ed3;
+    Button clear, save, get;
+
+    public static final String myPref="myPref";
+    public static final String namekey="namekey";
+    public static final String phonekey="phoneKey";
+    public static final String emailkey="emailKey";
+
+    SharedPreferences sp ;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        ed1=findViewById(R.id.editText1);
+        ed2=findViewById(R.id.editText2);
+        ed3=findViewById(R.id.editText3);
+
+        clear=findViewById(R.id.button3);
+        save=findViewById(R.id.button1);
+        get=findViewById(R.id.button2);
+
+        sp=getSharedPreferences(myPref, Context.MODE_PRIVATE);
+
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
+
+                Toast.makeText(MainActivity.this,"Shared Preferences have been cleared!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name=ed1.getText().toString();
+                String phone=ed2.getText().toString();
+                String email=ed3.getText().toString();
+
+                SharedPreferences.Editor editor = sp.edit();
+
+                editor.putString(namekey, name);
+                editor.putString(phonekey, phone);
+                editor.putString(emailkey, email);
+                editor.commit();
+                Toast.makeText(MainActivity.this,"Data Saved into Share Preferences!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        get.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sp.getAll().isEmpty()) {
+                    Toast.makeText(MainActivity.this,"Shared Preferences is Empty!", Toast.LENGTH_LONG).show();
+                } else {
+                    String name = sp.getString(namekey,"");
+                    String phone = sp.getString(phonekey,"");
+                    String email = sp.getString(emailkey,"");
+
+                    ed1.setText(name.toString());
+                    ed2.setText(phone.toString());
+                    ed3.setText(email.toString());
+                }
+            }
+        });
+
+    }
+}

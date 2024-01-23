@@ -1,0 +1,342 @@
+EXERCISE 
+
+MainActivity.java 
+
+package com.example.loginsharedpreference;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText usernameEditText, passwordEditText;
+    Button loginButton, getDataButton, clearDataButton;
+
+    public static final String myPref = "myPref";
+    public static final String usernameKey = "usernameKey";
+    public static final String passwordKey = "passwordKey";
+
+    SharedPreferences sp;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        usernameEditText = findViewById(R.id.editText1);
+        passwordEditText = findViewById(R.id.editText2);
+        loginButton = findViewById(R.id.loginButton);
+        getDataButton = findViewById(R.id.getDataButton);
+        clearDataButton = findViewById(R.id.clearDataButton);
+
+        sp = getSharedPreferences(myPref, Context.MODE_PRIVATE);
+
+        // Check if username and password are stored in SharedPreferences
+        String storedUsername = getUsernameFromSharedPreferences();
+        String storedPassword = getPasswordFromSharedPreferences();
+
+        if (storedUsername.isEmpty() || storedPassword.isEmpty()) {
+            // If either username or password is empty, stay on the current login screen
+        } else {
+            // Credentials are present, navigate to success page
+            Intent intent = new Intent(MainActivity.this, SuccessActivity.class);
+            startActivity(intent);
+            finish(); // Finish current activity to prevent coming back to login page
+        }
+
+        loginButton.setOnClickListener(view -> {
+            // Get the entered username and password
+            String enteredUsername = usernameEditText.getText().toString();
+            String enteredPassword = passwordEditText.getText().toString();
+
+            // Validate the entered username and password (implement your own validation logic)
+            if (isValidCredentials(enteredUsername, enteredPassword)) {
+                // Save the entered username and password to SharedPreferences
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString(usernameKey, enteredUsername);
+                editor.putString(passwordKey, enteredPassword);
+                editor.apply();
+
+                // Continue with your login logic, e.g., navigate to success page
+                Intent intent = new Intent(MainActivity.this, SuccessActivity.class);
+                startActivity(intent);
+                finish(); // Finish current activity to prevent coming back to login page
+            } else {
+                // Invalid credentials, show a toast or handle the error as needed
+                Toast.makeText(MainActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    // Validate the entered username and password (replace this with your own validation logic)
+    private boolean isValidCredentials(String username, String password) {
+        // Implement your validation logic here
+        // For demonstration, let's assume valid credentials if both fields are non-empty
+        return !username.isEmpty() && !password.isEmpty();
+    }
+
+    // Function to get username from SharedPreferences
+    private String getUsernameFromSharedPreferences() {
+        return sp.getString(usernameKey, "");
+    }
+
+    // Function to get password from SharedPreferences
+    private String getPasswordFromSharedPreferences() {
+        return sp.getString(passwordKey, "");
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:minHeight="48dp"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="20dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Login"/>
+
+    <Button
+        android:id="@+id/getDataButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginButton"
+        android:layout_marginTop="20dp"
+        android:text="Get Data"/>
+
+    <Button
+        android:id="@+id/clearDataButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/getDataButton"
+        android:layout_marginTop="20dp"
+        android:text="Clear Data"/>
+
+</RelativeLayout>
+
+----------------------------------------------------------------------------------------------------------------------------------------
+LoginActivity.java
+
+package com.example.loginsharedpreference;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class LoginActivity extends AppCompatActivity {
+
+    EditText usernameEditText, passwordEditText;
+    Button loginButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        usernameEditText = findViewById(R.id.loginUsernameEditText);
+        passwordEditText = findViewById(R.id.loginPasswordEditText);
+        loginButton = findViewById(R.id.loginButton);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get the entered username and password
+                String enteredUsername = usernameEditText.getText().toString();
+                String enteredPassword = passwordEditText.getText().toString();
+
+                // Validate the entered username and password (implement your own validation logic)
+                if (isValidCredentials(enteredUsername, enteredPassword)) {
+                    // Continue with your login logic, e.g., navigate to success page
+                    Intent intent = new Intent(LoginActivity.this, SuccessActivity.class);
+                    startActivity(intent);
+                    finish(); // Finish current activity to prevent coming back to login page
+                } else {
+                    // Invalid credentials, show a toast or handle the error as needed
+                    Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    // Validate the entered username and password (replace this with your own validation logic)
+    private boolean isValidCredentials(String username, String password) {
+        // Implement your validation logic here
+        // For demonstration, let's assume valid credentials if both fields are non-empty
+        return !username.isEmpty() && !password.isEmpty();
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+activity_login.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Log In Shared Preference"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="20dp"/>
+
+    <ImageView
+        android:id="@+id/loginLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/titleTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_launcher_foreground"
+        android:contentDescription="App Logo"/>
+
+    <EditText
+        android:id="@+id/loginUsernameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginLogo"
+        android:layout_marginTop="20dp"
+        android:hint="Enter your username"
+        android:minHeight="48dp"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/loginPasswordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginUsernameEditText"
+        android:layout_marginTop="16dp"
+        android:hint="Enter your password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginPasswordEditText"
+        android:layout_marginTop="24dp"
+        android:text="Login"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"/>
+
+</RelativeLayout>
+
+----------------------------------------------------------------------------------------------------------------------------------------
+SuccessActivity.java
+
+package com.example.loginsharedpreference;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.content.Intent;
+
+public class SuccessActivity extends AppCompatActivity {
+
+    Button backButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_success);
+
+        backButton = findViewById(R.id.backButton);
+
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the click event to navigate back to the LoginActivity
+                Intent intent = new Intent(SuccessActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish(); // Finish current activity to prevent coming back to success page
+            }
+        });
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+activity_success.xml
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/successText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Login Successful!"
+        android:textSize="24sp"/>
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/successText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Back to Login"/>
+
+</RelativeLayout>
+

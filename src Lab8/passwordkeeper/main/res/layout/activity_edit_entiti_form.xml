@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".EntitiForm" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/etEntitiEdt"
+            android:layout_alignParentLeft="true"
+            android:text="Entiti"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/etEntitiEdt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+            android:hint="Entered Entiti Name"
+            android:inputType="text">
+
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/etEntitiEdt"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="-50dp"
+            android:text="Username"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/etUsernameEdt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etEntitiEdt"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/textView2"
+            android:ems="10"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="-50dp"
+            android:text="Password"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/etPasswordEdt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etUsernameEdt"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/textView2"
+            android:ems="10"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="-50dp"
+            android:text="Description"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/etDescriptionEdt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etPasswordEdt"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/textView4"
+            android:ems="10"
+            android:inputType="text"
+            android:lines="3"
+            android:maxLines="3"
+            android:singleLine="false" />
+
+        <Button
+            android:id="@+id/btnUpdateEntiti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/etDescriptionEdt"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginBottom="8dp"
+            android:text="update" />
+
+        <Button
+            android:id="@+id/btnDeleteEntiti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/etDescriptionEdt"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="141dp"
+            android:layout_marginBottom="10dp"
+            android:text="delete" />
+    </RelativeLayout>
+</ScrollView>
